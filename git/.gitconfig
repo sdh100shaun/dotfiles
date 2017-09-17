@@ -1,0 +1,23 @@
+# This is Git's per-user configuration file.
+[core]
+# Please adapt and uncomment the following lines:
+	user = Shaun Hare
+[user]
+	name = Shaun Hare
+	
+[push]
+	default = matching
+
+[pull]
+	rebase = true
+
+[color]
+    	ui = true
+
+[commit]
+	template = .stCommitMsg
+[alias]
+	lgb = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
+	logfile = log --name-status
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+

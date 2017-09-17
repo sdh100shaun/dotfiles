@@ -1,0 +1,13 @@
+#docker commands for when not in zsh
+alias dc='docker-compose'
+dclean() {
+  docker stop $(docker ps -a -q);
+  docker rm $(docker ps -q -a);
+  docker rmi $(docker images | grep "^<none>" | awk "{print $3}");
+}
+
+dnuke() {
+  docker stop $(docker ps -a -q);
+  docker rm $(docker ps -q -a);
+  docker rmi $(docker images -q);
+}
