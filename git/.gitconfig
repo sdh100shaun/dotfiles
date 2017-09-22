@@ -4,6 +4,7 @@
 	user = Shaun Hare
 [user]
 	name = Shaun Hare
+	email = shaun.hare@dvsa.gov.uk
 	
 [push]
 	default = matching
