@@ -11,3 +11,5 @@ dnuke() {
   docker rm $(docker ps -q -a);
   docker rmi $(docker images -q);
 }
+
+2dev='cd /Volumes/Dev'
