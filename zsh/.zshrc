@@ -98,3 +98,7 @@ dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
 #Switch to main development environment 
 2dev() {cd /Volumes/Dev;}
 
+# Add AWS cli to path 
+export PATH=~/Library/Python/3.6/bin:$PATH
+# Add ref for git flow completion
+source ~/dotfiles/zsh/git-flow-completion.zsh
