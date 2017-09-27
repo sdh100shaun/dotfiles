@@ -86,6 +86,10 @@ alias drmf='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
 # Remove all images
 dri() { docker rmi $(docker images -q); }
 
+#remove all images not tagged 
+
+drit() {docker rmi $(docker images | grep "^<none>" | awk "{print $3}")}
+
 # Dockerfile build, e.g., $dbu tcnksm/test 
 dbu() { docker build -t=$1 .; }
 
@@ -100,5 +104,6 @@ dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
 
 # Add AWS cli to path 
 export PATH=~/Library/Python/3.6/bin:$PATH
+
 # Add ref for git flow completion
 source ~/dotfiles/zsh/git-flow-completion.zsh
