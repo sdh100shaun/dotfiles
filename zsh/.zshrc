@@ -107,3 +107,7 @@ export PATH=~/Library/Python/3.6/bin:$PATH
 
 # Add ref for git flow completion
 source ~/dotfiles/zsh/git-flow-completion.zsh
+
+# Add database specific zsh aliases
+source ~/dotfiles/zsh/mysql-aliases.zsh
+
