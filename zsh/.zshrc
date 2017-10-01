@@ -111,3 +111,5 @@ source ~/dotfiles/zsh/git-flow-completion.zsh
 # Add database specific zsh aliases
 source ~/dotfiles/zsh/mysql-aliases.zsh
 
+#Add link to credetials files - not committed 
+source ~/dotfiles/credentials/env.zsh
