@@ -113,3 +113,4 @@ source ~/dotfiles/zsh/mysql-aliases.zsh
 
 #Add link to credetials files - not committed 
 source ~/dotfiles/credentials/env.zsh
+export PATH="/usr/local/opt/curl/bin:$PATH"
