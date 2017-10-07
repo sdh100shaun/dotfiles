@@ -114,3 +114,6 @@ source ~/dotfiles/zsh/mysql-aliases.zsh
 #Add link to credetials files - not committed 
 source ~/dotfiles/credentials/env.zsh
 export PATH="/usr/local/opt/curl/bin:$PATH"
+
+# Add composer specific zsh aliases
+source ~/dotfiles/zsh/composer-alias.zsh
