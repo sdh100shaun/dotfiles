@@ -101,9 +101,13 @@ dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
 
 #Switch to main development environment 
 2dev() {cd /Volumes/Dev;}
+2vol() {cd /Volumes/Dev/Projects/VOL/}
 
 # Add AWS cli to path 
 export PATH=~/Library/Python/3.6/bin:$PATH
+
+# Add local composer bin path 
+export PATH=~/.composer/vendor/bin:$PATH
 
 # Add ref for git flow completion
 source ~/dotfiles/zsh/git-flow-completion.zsh
@@ -117,3 +121,7 @@ export PATH="/usr/local/opt/curl/bin:$PATH"
 
 # Add composer specific zsh aliases
 source ~/dotfiles/zsh/composer-alias.zsh
+# Add phpcs amd phpcbf 
+#source ~/dotfiles/zsh/phpcs-alias.zsh
+
+git-status(){~/dotfiles/git/git-status.sh $1}
