@@ -1,0 +1,3 @@
+function php-latest() {
+  run_with_docker "php" "latest" "php" $@
+}
