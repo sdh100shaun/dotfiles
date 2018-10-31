@@ -125,3 +125,8 @@ source ~/dotfiles/zsh/composer-alias.zsh
 #source ~/dotfiles/zsh/phpcs-alias.zsh
 
 git-status(){~/dotfiles/git/git-status.sh $1}
+export PATH="/usr/local/opt/php@5.6/bin:$PATH"
+export PATH="/usr/local/opt/php@5.6/sbin:$PATH"
+export PATH="/usr/local/opt/php@7.1/bin:$PATH"
+export PATH="/usr/local/opt/php@7.1/sbin:$PATH"
+export dev_workspace="/Volumes/Dev/Projects/VOL/OLCS"

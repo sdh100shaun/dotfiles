@@ -2,15 +2,10 @@
 [core]
 # Please adapt and uncomment the following lines:
 	user = Shaun Hare
+	excludesfile = /Users/shaunhare/.gitignore_global
 [user]
 	name = Shaun Hare
 	email = shaun.hare@dvsa.gov.uk
-	
-[push]
-	default = matching
-
-[pull]
-	rebase = true
 
 [color]
     	ui = true
@@ -21,4 +16,12 @@
 	lgb = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
 	logfile = log --name-status
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+[include]
+	path=/Users/shaunhare/dotfiles/git/gitconfig
 
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
