@@ -156,4 +156,8 @@ function run_with_docker() {
 }
 # Add php specific zsh aliases
 source ~/dotfiles/zsh/php.alias
+source ~/dotfiles/zsh/phpcs-alias.zsh
+
+source ~/dotfiles/zsh/terraform.zsh
 git-status(){~/dotfiles/git/git-status.sh $1}
+
