@@ -1,1 +1,1 @@
-/Volumes/Dev/Projects/docker/local-composer-setup/alias-composer.zsh
+/Volumes/Development/docker/local-composer-setup/alias-composer.zsh
