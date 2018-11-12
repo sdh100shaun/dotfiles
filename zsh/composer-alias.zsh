@@ -1,1 +1,0 @@
-/Volumes/Development/docker/local-composer-setup/alias-composer.zsh

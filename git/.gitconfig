@@ -17,7 +17,7 @@
 	logfile = log --name-status
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 [include]
-	path=/Users/shaunhare/dotfiles/git/gitconfig
+	path=/Volumes/Dev/Projects/VOL/OLCS/olcs-devtools/gitconfig-shared
 
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"

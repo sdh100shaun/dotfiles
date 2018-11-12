@@ -13,3 +13,4 @@ dnuke() {
 }
 
 2dev='cd /Volumes/Dev'
+2vol='cd cd /Volumes/Dev/Projects/VOL/'
