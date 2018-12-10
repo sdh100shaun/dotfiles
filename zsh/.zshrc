@@ -165,6 +165,5 @@ export PATH="/usr/local/opt/php@5.6/sbin:$PATH"
 export PATH="/usr/local/opt/php@7.1/bin:$PATH"
 export PATH="/usr/local/opt/php@7.1/sbin:$PATH"
 export dev_workspace="/Volumes/Dev/Projects/VOL/OLCS"
-
-
-
+export PATH="/usr/local/opt/m4/bin:$PATH"
+export PATH="/usr/local/opt/php@7.1/bin/:$PATH"
