@@ -344,3 +344,4 @@ __git_command_successful () {
 zstyle ':completion:*:*:git:*' user-commands flow:'provide high-level repository operations'
 alias gff='git branch -d `git branch --list "feature/*"`'
 alias gitdeletetag='git push origin :tagname'
+alias grb='git for-each-ref --sort=-committerdate refs/heads/ --count=10'

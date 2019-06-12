@@ -15,6 +15,7 @@
 [alias]
 	lgb = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
 	logfile = log --name-status
+    recent-branches='git for-each-ref --sort=-committerdate refs/heads/ --count=3'
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 [include]
 	path=/Volumes/Dev/Projects/VOL/OLCS/olcs-devtools/gitconfig-shared
