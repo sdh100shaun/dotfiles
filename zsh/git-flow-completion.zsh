@@ -345,3 +345,4 @@ zstyle ':completion:*:*:git:*' user-commands flow:'provide high-level repository
 alias gff='git branch -d `git branch --list "feature/*"`'
 alias gitdeletetag='git push origin :tagname'
 alias grb='git for-each-ref --sort=-committerdate refs/heads/ --count=10'
+balias gtdel='git push origin :tagname'

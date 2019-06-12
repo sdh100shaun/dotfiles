@@ -102,6 +102,7 @@ dbash() { docker exec -it $(docker ps -aqf "name=$1") bash; }
 #Switch to main development environment
 2dev() {cd /Volumes/Dev;}
 2vol() {cd /Volumes/Dev/Projects/VOL/}
+source ~/dotfiles/zsh/balias.zsh
 
 # Add AWS cli to path
 export PATH=~/Library/Python/3.6/bin:$PATH
@@ -157,7 +158,10 @@ function run_with_docker() {
 # Add php specific zsh aliases
 source ~/dotfiles/zsh/php.alias
 source ~/dotfiles/zsh/phpcs-alias.zsh
+
+# add general other tools 
 source ~/dotfiles/zsh/terraform.zsh
+source ~/dotfiles/zsh/macosx.zsh
 git-status(){~/dotfiles/git/git-status.sh $1}
 
 export PATH="/usr/local/opt/php@5.6/bin:$PATH"
