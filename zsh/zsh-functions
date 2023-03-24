@@ -1,1 +1,10 @@
+#!/bin/zsh
+
 #functions commonly used
+cwd() {
+ z $1
+}
+
+gc() {
+ git commit "$@"
+}

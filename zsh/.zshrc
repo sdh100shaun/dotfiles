@@ -18,3 +18,20 @@ eval "$(starship init zsh)"
 if [ -r ~/.zshrc ]; then echo 'export GPG_TTY=$(tty)' >> ~/.zshrc; \
   else echo 'export GPG_TTY=$(tty)' >> ~/.zprofile; fi
 export GPG_TTY=$(tty)
+export GPG_TTY=$(tty)
+
+# run zoxide
+eval "$(zoxide init zsh)"
+
+source /Volumes/Development/setup/dotfiles/zsh/zsh-functions
+export GPG_TTY=$(tty)
+export GPG_TTY=$(tty)
+export GPG_TTY=$(tty)
+export GPG_TTY=$(tty)
+export GPG_TTY=$(tty)
+export GPG_TTY=$(tty)
+export GPG_TTY=$(tty)
+export GPG_TTY=$(tty)
+export GPG_TTY=$(tty)
+export GPG_TTY=$(tty)
+export GPG_TTY=$(tty)

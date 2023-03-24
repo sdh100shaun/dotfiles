@@ -17,9 +17,11 @@ brew install starship
 brew install zplug
 brew tap homebrew/cask-fonts
 brew install font-inconsolata
+brew install zoxide
 
 # override zshrc
  rm ~/.zshrc && ln -s ${PWD}/zsh/.zshrc ~/.zshrc
+ echo "source ${PWD}/zsh/zsh-functions" >> ~/.zshrc
 
 source $ZPLUG_HOME/init.zsh
 
