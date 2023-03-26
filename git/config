@@ -1,0 +1,24 @@
+# This is Git's per-user configuration file.
+
+[color]
+    	ui = true
+
+[commit]
+	template = .stCommitMsg
+[alias]
+	lgb = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
+	logfile = log --name-status
+    recent-branches='git for-each-ref --sort=-committerdate refs/heads/ --count=3'
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+ # This allows you to run any bash command in each git sub-directory in one go
+    # e.g: git vol-bash-each ls
+    vol-bash-each = "!ls | xargs -I% bash -c '[ -d \"%/.git\" ] && cd \"%\" || exit ; [ \"$VOL_GIT_VERBOSE\" != \"0\" ] && echo -e \"\n\\e[35mRepository: \\e[32m%\\e[0m\"; \"$@\"' bash"
+    # set VOL_GIT_VERBOSE=0 to silence the location output - e.g.:
+    # e.g: VOL_GIT_VERBOSE=0 git vol-bash-each ls
+
+    # This allows you to run any bash command over each git sub-directory which is tracking an upstream directory
+    vol-bash-each-tracking = "!git vol-bash-each bash -c 'git config branch.`git rev-parse --abbrev-ref HEAD`.remote >> /dev/null || ([ \"$VOL_GIT_VERBOSE\" != \"0\" ] && echo -e \"\\e[33mNot tracking\\e[0m\" && false) || exit; \"$@\"' bash"
+
+    # This allows you to run any git command over each git sub-directory in one go
+    # e.g: git vol-each status
+    vol-each = "!git vol-bash-each git"

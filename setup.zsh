@@ -22,12 +22,19 @@ brew install zoxide
 # override zshrc
  rm ~/.zshrc && ln -s ${PWD}/zsh/.zshrc ~/.zshrc
  echo "source ${PWD}/zsh/zsh-functions" >> ~/.zshrc
+ echo "source ${PWD}/zsh/containerised.zsh" >> ~/.zshrc
 
+ echo DOT_FILE_PATH=${PWD} >> ~/.zshenv 
+
+source ~/.zshenv
 source $ZPLUG_HOME/init.zsh
 
  if [[ (( $+commands[zplug] )) ]]
  then 
 	echo "zplug installed adding plugins" 
 	zplug  install "rawkode/zsh-docker-run"
-	zplug load "rawkode/zsh-docker-run"
+	echo 'zplug load "rawkode/zsh-docker-run"' >> ~/.zshrc
 fi
+
+#set up git settings
+cp ${PWD}/git/config ~/.gitconfig-shared

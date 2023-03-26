@@ -1,10 +1,28 @@
 #!/bin/zsh
 
 #functions commonly used
-cwd() {
+function cwd() {
  z $1
 }
 
-gc() {
+function gc() {
  git commit "$@"
 }
+
+function passgen() {
+ if [ "$1" != "" ]
+    then
+        keepassxc-cli generate -L $1
+    else
+        keepassxc-cli generate
+    fi
+}
+
+function setphp() {
+  export PHP_VERSION=$1
+}
+
+function resetphp {
+  unset PHP_VERSION
+}
+
