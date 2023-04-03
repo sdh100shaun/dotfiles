@@ -31,3 +31,8 @@ source /Volumes/Development/setup/dotfiles/zsh/containerised.zsh
 zplug load "rawkode/zsh-docker-run"
 
 source ~/.zshenv
+export GPG_TTY=$(tty)
+
+source /Volumes/Development/setup/dotfiles/zsh/aws_helper_profile.zsh
+export GPG_TTY=$(tty)
+export GPG_TTY=$(tty)

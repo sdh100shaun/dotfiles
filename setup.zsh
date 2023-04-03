@@ -38,3 +38,8 @@ fi
 
 #set up git settings
 cp ${PWD}/git/config ~/.gitconfig-shared
+
+if [  -f ${PWD}/zsh/aws_helper_profile.zsh ]; then
+ echo source ${PWD}/zsh/aws_helper_profile.zsh >> ~/.zshrc
+fi
+
