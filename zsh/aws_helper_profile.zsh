@@ -1,4 +1,4 @@
-#!/usr/bin/env bash 
+#!/usr/bin/env bash
 function aws_unset_creds() {
   echo "Unsetting all existing AWS_* credential-related environment variables...";
   unset AWS_ACCESS_KEY_ID;
@@ -31,17 +31,18 @@ function aws_check_creds() {
     echo "Error: unable to verify credentials with AWS" >&2;
     return 1;
   fi;
-  echo $caller_identity
   local account_id="${caller_identity[@]:0:1}";
   local arn="${caller_identity[@]:1:1}";
   local user_id="${caller_identity[@]:2:1}";
 
   if [[ -n "${account_id}" && -n "${arn}" && -n "${user_id}" ]]; then
     echo "Credentials valid for the following Account/User:"
-    echo "AWS Profile: ${AWS_PROFILE}";
-    echo "Account ID: ${account_id}";
-    echo "ARN: ${arn}";
-    echo "User ID: ${user_id}";
+    echo "================================================="
+    echo "  AWS Profile: ${AWS_PROFILE}";
+    echo "   Account ID: ${account_id}";
+    echo "          ARN: ${arn}";
+    echo "      User ID: ${user_id}";
+    echo "================================================="
     return 0;
   else
     echo "Unhandled error with 'aws sts get-caller-identity'" >&2;
@@ -54,12 +55,22 @@ function aws_set_creds() {
   if ! [ "${?}" -eq 0 ]; then
     return 1;
   fi;
-  
-  echo -n "Enter your AWS Profile: ";
-  read -r -s AWS_PROFILE;
+
+  profiles=(`aws configure list-profiles`)
+
   echo;
-  
+
+  PS3="Choose a AWS profile: "
+  select chosen in "${profiles[@]}"; do
+    [ -n "${chosen}" ] && break
+    echo "The number you have dialed has not been recognised; please check and try again."
+  done
+
+  AWS_PROFILE=$chosen
   export AWS_PROFILE
+
+  echo;
+
   aws_check_creds;
   if ! [ "${?}" -eq 0 ]; then
     return 1;
