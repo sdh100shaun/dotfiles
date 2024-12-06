@@ -22,3 +22,6 @@
     # This allows you to run any git command over each git sub-directory in one go
     # e.g: git vol-each status
     vol-each = "!git vol-bash-each git"
+[user]
+	name = Shaun Hare
+	email = shaun@shaunhare.co.uk
