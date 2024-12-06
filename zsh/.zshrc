@@ -23,85 +23,20 @@ export GPG_TTY=$(tty)
 eval "$(zoxide init zsh)"
 
 
-source /Volumes/Development/setup/dotfiles/zsh/zsh-functions
+source /Volumes/Development/tools/dotfiles/zsh/zsh-functions
 
 
-source /Volumes/Development/setup/dotfiles/zsh/zsh-functions
-source /Volumes/Development/setup/dotfiles/zsh/containerised.zsh
+source /Volumes/Development/tools/dotfiles/zsh/zsh-functions
+source /Volumes/Development/tools/dotfiles/zsh/containerised.zsh
 zplug load "rawkode/zsh-docker-run"
 
 source ~/.zshenv
-export GPG_TTY=$(tty)
 
-source /Volumes/Development/setup/dotfiles/zsh/aws_helper_profile.zsh
+source /Volumes/Development/tools/dotfiles/zsh/aws_helper_profile.zsh
 
 eval "$(ssh-agent)"
 export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
-export GPG_TTY=$(tty)
+source /Volumes/Development/tools/dotfiles/zsh/zsh-functions
+source /Volumes/Development/tools/dotfiles/zsh/containerised.zsh
+zplug load "rawkode/zsh-docker-run"
+source /Volumes/Development/tools/dotfiles/zsh/aws_helper_profile.zsh
