@@ -6,3 +6,4 @@ export { Header } from './Header';
 export { MessageDialog } from './MessageDialog';
 export { GroupBrowser } from './GroupBrowser';
 export { HelpScreen } from './HelpScreen';
+export { LoadingIndicator } from './LoadingIndicator';
