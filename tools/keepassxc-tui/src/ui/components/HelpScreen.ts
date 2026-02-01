@@ -22,6 +22,7 @@ export class HelpScreen {
       tags: true,
       keys: true,
       vi: true,
+      focusable: true,
       scrollable: true,
       alwaysScroll: true,
       style: {

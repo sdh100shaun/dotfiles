@@ -1,6 +1,7 @@
 import * as blessed from 'blessed';
 import { styles } from '../theme';
 import type { LoginEntry } from '../../types';
+import { sanitizeForBlessed } from '../../utils';
 
 export interface EntryListOptions {
   parent: blessed.Widgets.Screen;
@@ -28,15 +29,13 @@ export class EntryList {
         type: 'line',
       },
       label: ' Entries ',
-      ...styles.list,
+      scrollbar: styles.list.scrollbar,
       style: {
+        fg: 'white',
+        bg: 'black',
         ...styles.list.style,
         border: {
           fg: 'blue',
-        },
-        label: {
-          fg: 'green',
-          bold: true,
         },
       },
     });
@@ -51,9 +50,9 @@ export class EntryList {
   setEntries(entries: LoginEntry[]): void {
     this.entries = entries;
     const items = entries.map((entry, index) => {
-      const name = entry.name || 'Unnamed';
-      const login = entry.login || '';
-      const group = entry.group ? `[${entry.group}]` : '';
+      const name = sanitizeForBlessed(entry.name || 'Unnamed');
+      const login = sanitizeForBlessed(entry.login || '');
+      const group = entry.group ? `[${sanitizeForBlessed(entry.group)}]` : '';
       return `${(index + 1).toString().padStart(3)}. ${name.padEnd(30)} ${login.padEnd(25)} ${group}`;
     });
 
@@ -73,7 +72,7 @@ export class EntryList {
   }
 
   getSelectedIndex(): number {
-    return this.list.selected || 0;
+    return (this.list as unknown as { selected: number }).selected || 0;
   }
 
   getSelectedEntry(): LoginEntry | null {

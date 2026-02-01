@@ -1,5 +1,4 @@
 import * as blessed from 'blessed';
-import { styles } from '../theme';
 
 export interface SearchInputOptions {
   parent: blessed.Widgets.Screen;
@@ -42,7 +41,11 @@ export class SearchInput {
       width: '100%-4',
       height: 1,
       inputOnFocus: true,
-      ...styles.input,
+      keys: true,
+      style: {
+        fg: 'white',
+        bg: 'black',
+      },
     });
 
     this.input.on('submit', (value: string) => {

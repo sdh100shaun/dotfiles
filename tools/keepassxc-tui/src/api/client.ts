@@ -225,9 +225,34 @@ export class KeePassXCClient {
   }
 
   async searchLogins(searchTerm: string): Promise<LoginEntry[]> {
-    // KeePassXC doesn't have a direct search API, so we use URL-based lookup
-    // Using the search term as a URL pattern
-    return this.getLogins(searchTerm);
+    // KeePassXC's get-logins is URL-based, so we try multiple patterns
+    // to maximize matches including partial URL matches
+    const searchPatterns = [
+      searchTerm,
+      `https://${searchTerm}`,
+      `http://${searchTerm}`,
+      `https://${searchTerm}.com`,
+      `https://www.${searchTerm}.com`,
+    ];
+
+    const allEntries: LoginEntry[] = [];
+    const seenUuids = new Set<string>();
+
+    for (const pattern of searchPatterns) {
+      try {
+        const entries = await this.getLogins(pattern);
+        for (const entry of entries) {
+          if (!seenUuids.has(entry.uuid)) {
+            seenUuids.add(entry.uuid);
+            allEntries.push(entry);
+          }
+        }
+      } catch {
+        // Ignore errors for individual patterns
+      }
+    }
+
+    return allEntries;
   }
 
   async getDatabaseGroups(): Promise<DatabaseGroup[]> {

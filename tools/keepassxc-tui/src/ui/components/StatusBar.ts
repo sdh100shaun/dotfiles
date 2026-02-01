@@ -1,5 +1,6 @@
 import * as blessed from 'blessed';
 import { styles } from '../theme';
+import { sanitizeForBlessed } from '../../utils';
 
 export interface StatusBarOptions {
   parent: blessed.Widgets.Screen;
@@ -28,7 +29,7 @@ export class StatusBar {
   }
 
   setMessage(message: string): void {
-    this.message = message;
+    this.message = sanitizeForBlessed(message);
     this.render();
   }
 

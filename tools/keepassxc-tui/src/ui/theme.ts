@@ -36,9 +36,7 @@ export const styles = {
     },
     scrollbar: {
       ch: '│',
-      style: {
-        fg: defaultTheme.colors.secondary,
-      },
+      fg: defaultTheme.colors.secondary,
     },
   },
   input: {
@@ -46,9 +44,11 @@ export const styles = {
       fg: defaultTheme.colors.foreground,
       bg: 'black',
       focus: {
-        border: {
-          fg: defaultTheme.colors.accent,
-        },
+        fg: defaultTheme.colors.foreground,
+        bg: 'black',
+      },
+      border: {
+        fg: defaultTheme.colors.secondary,
       },
     },
   },

@@ -11,7 +11,7 @@ import {
   HelpScreen,
 } from './components';
 import type { AppState, ViewType, LoginEntry } from '../types';
-import { copyToClipboard } from '../utils/clipboard';
+import { copyToClipboard } from '../utils';
 
 export class App {
   private state: AppState;
@@ -62,8 +62,12 @@ export class App {
         artificial: true,
         shape: 'line',
         blink: true,
-        color: null,
+        color: 'white',
       },
+      warnings: false,
+      fullUnicode: true,
+      // Don't specify terminal type - let blessed auto-detect
+      // This avoids issues with advanced terminfo capabilities like Setulc
     });
   }
 
@@ -217,6 +221,39 @@ export class App {
       if (isDialogOpen()) return;
       this.helpScreen?.show();
     });
+
+    // Close message dialog with Escape or Enter
+    this.screen.key(['escape', 'enter'], () => {
+      if (this.messageDialog?.isVisible()) {
+        this.messageDialog.hide();
+        this.entryList?.focus();
+        return;
+      }
+    });
+
+    // Close other dialogs with Escape only
+    this.screen.key('escape', () => {
+      if (this.searchInput?.isVisible()) {
+        this.searchInput.hide();
+        this.entryList?.focus();
+        return;
+      }
+      if (this.helpScreen?.isVisible()) {
+        this.helpScreen.hide();
+        this.entryList?.focus();
+        return;
+      }
+      if (this.entryDetail?.isVisible()) {
+        this.entryDetail.hide();
+        this.entryList?.focus();
+        return;
+      }
+      if (this.groupBrowser?.isVisible()) {
+        this.groupBrowser.hide();
+        this.entryList?.focus();
+        return;
+      }
+    });
   }
 
   private async connect(): Promise<void> {
@@ -259,7 +296,7 @@ export class App {
     this.screen?.render();
 
     try {
-      const entries = await this.client.getLogins(query);
+      const entries = await this.client.searchLogins(query);
       this.state.entries = entries;
       this.entryList?.setEntries(entries);
       this.statusBar?.setMessage(`Found ${entries.length} entries`);

@@ -68,7 +68,8 @@ export class GroupBrowser {
       }
     });
 
-    this.box.key(['escape', 'q'], () => {
+    // Bind escape to the list since it receives focus
+    this.list.key(['escape', 'q'], () => {
       this.hide();
       if (this.onCloseCallback) {
         this.onCloseCallback();

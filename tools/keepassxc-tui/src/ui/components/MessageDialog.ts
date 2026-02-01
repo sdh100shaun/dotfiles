@@ -1,4 +1,5 @@
 import * as blessed from 'blessed';
+import { sanitizeForBlessed } from '../../utils';
 
 export type MessageType = 'info' | 'success' | 'error' | 'warning';
 
@@ -22,6 +23,7 @@ export class MessageDialog {
       },
       tags: true,
       keys: true,
+      focusable: true,
       style: {
         border: {
           fg: 'blue',
@@ -56,13 +58,14 @@ export class MessageDialog {
     const color = colors[type];
     const icon = icons[type];
     const displayTitle = title || type.charAt(0).toUpperCase() + type.slice(1);
+    const safeMessage = sanitizeForBlessed(message);
 
     this.box.style.border = { fg: color };
     this.box.setLabel(` ${displayTitle} `);
 
     const content = [
       '',
-      `  {${color}-fg}${icon}{/${color}-fg} ${message}`,
+      `  {${color}-fg}${icon}{/${color}-fg} ${safeMessage}`,
       '',
       '  {gray-fg}Press Enter or Escape to close{/gray-fg}',
     ].join('\n');
