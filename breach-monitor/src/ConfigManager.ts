@@ -52,5 +52,6 @@ export class ConfigManager {
     fs.writeFileSync(this.configPath, JSON.stringify(config, null, 2), {
       mode: 0o600, // Only the file owner can read or write this file
     });
+    fs.chmodSync(this.configPath, 0o600);
   }
 }
