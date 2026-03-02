@@ -80,6 +80,13 @@ export class StateManager {
     fs.writeFileSync(filePath, JSON.stringify(breaches, null, 2), {
       mode: 0o600, // Owner read/write only
     });
+
+    // Ensure permissions are correctly tightened even if the file already existed
+    try {
+      fs.chmodSync(filePath, 0o600);
+    } catch {
+      // Best-effort permission hardening; ignore errors (e.g., unsupported platforms)
+    }
   }
 
   /**
