@@ -58,7 +58,19 @@ export class StateManager {
     }
 
     const raw = fs.readFileSync(filePath, "utf-8");
-    return JSON.parse(raw) as Breach[];
+
+    try {
+      return JSON.parse(raw) as Breach[];
+    } catch (error) {
+      // If the state file is corrupted or contains invalid JSON, treat it as empty.
+      // This avoids crashing the whole check run due to a bad state file.
+      console.warn(
+        `Warning: Could not parse breach state file at ${filePath}. ` +
+          "Treating as empty state. " +
+          (error instanceof Error ? error.message : String(error)),
+      );
+      return [];
+    }
   }
 
   /**
