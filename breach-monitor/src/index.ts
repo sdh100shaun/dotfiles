@@ -96,6 +96,8 @@ async function runSetupWizard(configManager: ConfigManager): Promise<void> {
 
 /** Adds a daily 09:00 cron job that runs `breach-monitor check` */
 function installCronJob(scriptPath: string): void {
+  // Ensure the state directory exists so the cron log redirection won't fail.
+  fs.mkdirSync(STATE_DIR, { recursive: true });
   const cronLine = `0 9 * * * ${scriptPath} check >> ${LOG_FILE} 2>&1`;
 
   try {
