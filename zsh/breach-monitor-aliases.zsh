@@ -5,7 +5,7 @@
 BREACH_MONITOR_DIR="${0:A:h}/../breach-monitor"
 
 # Run the breach monitor CLI
-alias breach-monitor="npx --prefix $BREACH_MONITOR_DIR tsx $BREACH_MONITOR_DIR/src/index.ts"
+alias breach-monitor='npx --prefix "$BREACH_MONITOR_DIR" tsx "$BREACH_MONITOR_DIR/src/index.ts"'
 
 # Convenience shortcuts for the most common commands
 alias breach-setup="breach-monitor setup"
