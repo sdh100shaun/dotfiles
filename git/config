@@ -3,6 +3,9 @@
 [color]
     	ui = true
 
+[push]
+    autoSetupRemote = true
+
 [commit]
 	template = .stCommitMsg
 [alias]
