@@ -16,11 +16,14 @@ Personal zsh dotfiles for macOS (Homebrew-based) with AWS credential helpers, co
 
 Source the file (don't execute it) to get:
 
-- `aws_unset_creds` — clears all `AWS_*` env vars and blanks the `aws-helper` profile credentials.
-- `aws_check_creds` — calls `aws sts get-caller-identity` and prints account/ARN/user.
-- `aws_set_creds` — interactive picker over `aws configure list-profiles`; sets `AWS_PROFILE`.
-- `aws_auth_mfa` — IAM-user MFA flow: `iam list-mfa-devices` + `sts get-session-token`, exports session env vars and stashes them in the `aws-helper` profile.
-- `aws_assume_role <role-name> [<account-id>]` or `aws_assume_role -arn <role-arn>` — calls `sts assume-role`, exports session env vars.
+- `_aws_profile_type [profile]` — internal classifier; echoes `sso`, `sso-legacy`, `assume-role`, `iam`, or `unknown` based on `~/.aws/config` keys for the profile.
+- `aws_unset_creds [--sso]` — clears all `AWS_*` env vars; with `--sso`, also runs `aws sso logout`.
+- `aws_check_creds` — calls `aws sts get-caller-identity`, prints account/ARN/user, profile type, and (when available) credential expiry resolved via `aws configure export-credentials`.
+- `aws_set_creds` — interactive picker over `aws configure list-profiles`; sets `AWS_PROFILE`. If the chosen profile is SSO and the cached token is missing/expired, automatically runs `aws sso login`.
+- `aws_sso_login [profile]` — runs `aws sso login --profile <profile>` (refusing non-SSO profiles), then exports `AWS_PROFILE` and verifies.
+- `aws_export_env [profile]` — uses `aws configure export-credentials --format env` to populate `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` / `AWS_SESSION_TOKEN` / `AWS_CREDENTIAL_EXPIRATION` for any profile type (SSO, IAM, assume-role).
+- `aws_auth_mfa` — IAM-user MFA flow: `iam list-mfa-devices` + `sts get-session-token`. Refuses to run on SSO profiles with a hint to use `aws_sso_login`.
+- `aws_assume_role <role-name> [<account-id>]` or `aws_assume_role -arn <role-arn>` — calls `sts assume-role` from whatever credentials are active (IAM, MFA, or SSO).
 
 Stashed shadow vars: `AWS_PREMFA_*`, `AWS_PREASSUME_*`, `AWS_MFA_*`, `AWS_ASSUMED_*`, `AWS_SESSION_EXPIRY`, `AWS_MFA_EXPIRY`, `AWS_ROLE`, `AWS_ROLE_ARN`.
 
