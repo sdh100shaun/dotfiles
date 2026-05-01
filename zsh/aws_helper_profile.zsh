@@ -4,17 +4,19 @@
 # Echoes one of: sso | sso-legacy | assume-role | iam | unknown
 function _aws_profile_type() {
   local p="${1:-${AWS_PROFILE:-default}}"
+  # Check for static access keys first — a profile with keys is IAM
+  # regardless of any other config it may also carry.
+  if aws configure get aws_access_key_id --profile "$p" &>/dev/null; then
+    echo iam; return
+  fi
+  if aws configure get role_arn --profile "$p" &>/dev/null; then
+    echo assume-role; return
+  fi
   if aws configure get sso_session --profile "$p" &>/dev/null; then
     echo sso; return
   fi
   if aws configure get sso_start_url --profile "$p" &>/dev/null; then
     echo sso-legacy; return
-  fi
-  if aws configure get role_arn --profile "$p" &>/dev/null; then
-    echo assume-role; return
-  fi
-  if aws configure get aws_access_key_id --profile "$p" &>/dev/null; then
-    echo iam; return
   fi
   echo unknown
 }
@@ -103,14 +105,32 @@ function aws_set_creds() {
 
   echo;
 
-  PS3="Choose a AWS profile: "
+  PS3="Choose an AWS profile: "
   local chosen
   select chosen in "${profiles[@]}"; do
     [ -n "${chosen}" ] && break
     echo "The number you have dialed has not been recognised; please check and try again."
   done
 
+  local ptype
+  ptype="$(_aws_profile_type "${chosen}")"
+
+  if [[ "${ptype}" == "sso" || "${ptype}" == "sso-legacy" ]]; then
+    echo "Profile [${chosen}] is an SSO profile. Use 'aws_sso_login ${chosen}' instead." >&2
+    return 1
+  fi
+
   export AWS_PROFILE="${chosen}"
+
+  # For IAM profiles, export the static keys directly to env vars so they
+  # take precedence over any cached SSO credentials the CLI might resolve.
+  local key_id secret_key
+  key_id=$(aws configure get aws_access_key_id --profile "${chosen}" 2>/dev/null)
+  secret_key=$(aws configure get aws_secret_access_key --profile "${chosen}" 2>/dev/null)
+  if [[ -n "${key_id}" && -n "${secret_key}" ]]; then
+    export AWS_ACCESS_KEY_ID="${key_id}"
+    export AWS_SECRET_ACCESS_KEY="${secret_key}"
+  fi
 
   echo;
 
@@ -118,31 +138,51 @@ function aws_set_creds() {
     return 0
   fi
 
-  case "$(_aws_profile_type)" in
-    sso|sso-legacy)
-      echo "Attempting SSO login for profile [${AWS_PROFILE}]..."
-      if aws sso login --profile "${AWS_PROFILE}"; then
-        aws_check_creds
-        return $?
-      fi
-      ;;
-  esac
+  if [[ "${ptype}" == "iam" ]]; then
+    echo "Credentials check failed — attempting MFA authentication..."
+    aws_auth_mfa
+    return $?
+  fi
 
   return 1
 }
 
 # Log into AWS SSO for the chosen (or current) profile.
+# With no argument and no AWS_PROFILE set, presents an interactive picker of SSO profiles.
 function aws_sso_login() {
   local profile="${1:-${AWS_PROFILE}}"
+
   if [[ -z "${profile}" ]]; then
-    echo "Usage: aws_sso_login <profile>" >&2
-    return 1
+    # Interactive picker filtered to SSO profiles only
+    local all_profiles sso_profiles ptype
+    all_profiles=(`aws configure list-profiles`)
+    sso_profiles=()
+    for p in "${all_profiles[@]}"; do
+      ptype="$(_aws_profile_type "${p}")"
+      if [[ "${ptype}" == "sso" || "${ptype}" == "sso-legacy" ]]; then
+        sso_profiles+=("${p}")
+      fi
+    done
+
+    if [[ ${#sso_profiles[@]} -eq 0 ]]; then
+      echo "No SSO profiles found in ~/.aws/config" >&2
+      return 1
+    fi
+
+    echo;
+    PS3="Choose an SSO profile: "
+    select profile in "${sso_profiles[@]}"; do
+      [ -n "${profile}" ] && break
+      echo "The number you have dialed has not been recognised; please check and try again."
+    done
+    echo;
   fi
 
   case "$(_aws_profile_type "${profile}")" in
     sso|sso-legacy) ;;
     *)
       echo "Profile [${profile}] is not an SSO profile (type: $(_aws_profile_type "${profile}"))." >&2
+      echo "Use 'aws_set_creds' for non-SSO profiles." >&2
       return 1
       ;;
   esac
